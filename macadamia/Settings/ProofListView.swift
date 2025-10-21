@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import Flow
+// import Flow // Replaced with local implementation
 import CashuSwift
 
 struct MintListView: View {

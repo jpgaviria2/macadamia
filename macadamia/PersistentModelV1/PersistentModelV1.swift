@@ -14,7 +14,7 @@ typealias Event = AppSchemaV1.Event
 typealias Unit = AppSchemaV1.Unit
 typealias BlankOutputSet = AppSchemaV1.BlankOutputSet
 
-class DatabaseManager {
+class DatabaseManager: @unchecked Sendable {
     static let shared = DatabaseManager()
     
     private(set) var container: ModelContainer
@@ -156,7 +156,7 @@ class DatabaseManager {
 
 enum AppSchemaV1: VersionedSchema {
     
-    static var versionIdentifier = Schema.Version(1,0,0)
+    static let versionIdentifier = Schema.Version(1,0,0)
     
     static var models: [any PersistentModel.Type] {
         [Wallet.self,
@@ -216,7 +216,7 @@ enum AppSchemaV1: VersionedSchema {
     }
 
     @Model
-    final class Mint: MintRepresenting {
+    final class Mint: MintRepresenting, @unchecked Sendable {
         
         @Attribute(.unique)
         var mintID: UUID
@@ -293,8 +293,9 @@ enum AppSchemaV1: VersionedSchema {
             
             func updatedInfo() async throws -> CashuSwift.Mint.Info {
                 let info = try await CashuSwift.loadMintInfo(from: CashuSwift.Mint(self))
-                try await MainActor.run {
-                    infoData = try JSONEncoder().encode(info)
+                let encodedData = try JSONEncoder().encode(info)
+                await MainActor.run {
+                    infoData = encodedData
                     infoLastUpdated = Date.now
                 }
                 return info

@@ -1,7 +1,7 @@
 import SwiftUI
 import AVFoundation
 import secp256k1
-import Flow
+// import Flow // Replaced with local implementation
 
 struct InputValidator {
     enum ValidationResult {

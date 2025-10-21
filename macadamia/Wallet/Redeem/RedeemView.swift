@@ -3,7 +3,7 @@ import SwiftData
 import CashuSwift
 import OSLog
 
-fileprivate var redeemLogger = Logger(subsystem: "macadamia", category: "redeem")
+fileprivate let redeemLogger = Logger(subsystem: "macadamia", category: "redeem")
 
 
 struct RedeemView<AdditionalControls: View>: View {

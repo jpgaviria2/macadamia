@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-import CashuSwift
+@preconcurrency import CashuSwift
 import UIKit
 import Messages
 
@@ -99,7 +99,7 @@ struct MessageMintList: View {
 }
 
 struct MintGridItem: View {
-    let mint: Mint
+    nonisolated let mint: Mint
     
     @State private var mintIcon: UIImage?
     @State private var isLoadingIcon = false
@@ -156,17 +156,13 @@ struct MintGridItem: View {
     }
     
     private func loadMintIcon() {
-        Task {
-            await MainActor.run {
-                isLoadingIcon = true
-            }
+        Task { @MainActor in
+            isLoadingIcon = true
             
             do {
                 guard let info = try await mint.loadInfo(invalidateCache: false) else {
                     print("No mint info available")
-                    await MainActor.run {
-                        isLoadingIcon = false
-                    }
+                    isLoadingIcon = false
                     return
                 }
                 
@@ -175,18 +171,13 @@ struct MintGridItem: View {
                     
                     let (data, _) = try await URLSession.shared.data(from: iconURL)
                     if let image = UIImage(data: data) {
-                        await MainActor.run {
-                            mintIcon = image
-                            isLoadingIcon = false
-                        }
+                        mintIcon = image
+                        isLoadingIcon = false
                         return
                     }
                 }
             } catch {
                 print("Failed to load mint icon: \(error)")
-            }
-            
-            await MainActor.run {
                 isLoadingIcon = false
             }
         }
@@ -244,16 +235,14 @@ struct MessageSendView: View {
                             .lineLimit(1)
                     }
                 }
-                .task {
+                .task { @MainActor in
                     if let info = try? await mint.loadInfo(),
                        let urlString = info.iconUrl,
                        let url = URL(string: urlString) {
                         if let (data, _) = try? await URLSession.shared.data(from: url),
                            let image = UIImage(data: data) {
-                            await MainActor.run {
-                                withAnimation {
-                                    self.mintIcon = image
-                                }
+                            withAnimation {
+                                self.mintIcon = image
                             }
                         }
                     }
