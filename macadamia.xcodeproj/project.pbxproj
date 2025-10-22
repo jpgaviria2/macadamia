@@ -137,6 +137,9 @@
 		3793B9A62D004A490077F755 /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
 		3793B9A72D004ADA0077F755 /* Misc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (377A1BC72E6D9E1000BC1BC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Misc; sourceTree = "<group>"; };
 		37C4CC312E5CA4660028E4FE /* macadamiaMessages */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (37C4CC402E5CA4670028E4FE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = macadamiaMessages; sourceTree = "<group>"; };
+		67C26CE72EA83731005DA6F6 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		67C26CF72EA83747005DA6F6 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
+		67C26D052EA83759005DA6F6 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +154,6 @@
 				3792122E2B29E7520081F161 /* BigNumber in Frameworks */,
 				377FFF002BC43B6900DD2635 /* MarkdownUI in Frameworks */,
 				376E88432BE5468B0026FF8D /* Popovers in Frameworks */,
-				370A84072CC18AEE0039A413 /* Flow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +204,9 @@
 		372034B82B29E1BC00C4F955 /* macadamia */ = {
 			isa = PBXGroup;
 			children = (
+				67C26D052EA83759005DA6F6 /* Views */,
+				67C26CF72EA83747005DA6F6 /* Services */,
+				67C26CE72EA83731005DA6F6 /* Models */,
 				379A27EE2E3029A800827CC1 /* macadamia.entitlements */,
 				37E700122B4C0DD100CB1A58 /* Launch Screen.storyboard */,
 				372034B92B29E1BC00C4F955 /* macadamiaApp.swift */,
@@ -254,6 +259,9 @@
 				3793B9A42D0049F60077F755 /* PersistentModelV1 */,
 				3793B9A62D004A490077F755 /* Settings */,
 				3793B9A72D004ADA0077F755 /* Misc */,
+				67C26CE72EA83731005DA6F6 /* Models */,
+				67C26CF72EA83747005DA6F6 /* Services */,
+				67C26D052EA83759005DA6F6 /* Views */,
 			);
 			name = macadamia;
 			packageProductDependencies = (
@@ -326,7 +334,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					372034B52B29E1BC00C4F955 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -484,7 +492,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = BZ32L9M6QB;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -508,6 +516,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -548,7 +557,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = BZ32L9M6QB;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -565,6 +574,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -586,8 +596,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macadamia/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = macadamia;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Macadamia uses Bluetooth to send and receive ecash tokens with nearby devices, enabling offline peer-to-peer payments.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Macadamia uses Bluetooth to discover nearby devices and exchange ecash tokens for offline payments.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "macadamia uses your device's camera to read the QR-codes of lightning invoices.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Macadamia uses location to improve Bluetooth device discovery and enable location-based ecash transfers.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -599,12 +613,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BZ32L9M6QB.macadamia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpgaviria.macadamia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -628,8 +642,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macadamia/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = macadamia;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Macadamia uses Bluetooth to send and receive ecash tokens with nearby devices, enabling offline peer-to-peer payments.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Macadamia uses Bluetooth to discover nearby devices and exchange ecash tokens for offline payments.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "macadamia uses your device's camera to read the QR-codes of lightning invoices.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Macadamia uses location to improve Bluetooth device discovery and enable location-based ecash transfers.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -641,12 +659,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BZ32L9M6QB.macadamia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpgaviria.macadamia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -663,6 +681,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = BZ32L9M6QB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macadamia/macadamiaMessages/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = macadamia;
@@ -674,7 +693,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.4.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BZ32L9M6QB.macadamia.macadamiaMessages;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpgaviria.macadamia.macadamiaMessages;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = APP_EXTENSION;
@@ -694,6 +713,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = BZ32L9M6QB;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = macadamia/macadamiaMessages/Info.plist;
@@ -707,7 +727,7 @@
 				);
 				MARKETING_VERSION = 0.4.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BZ32L9M6QB.macadamia.macadamiaMessages;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jpgaviria.macadamia.macadamiaMessages;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "RELEASE $(inherited)";
@@ -725,6 +745,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zeugmaster.macadamiaTests;
@@ -742,6 +763,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zeugmaster.macadamiaTests;

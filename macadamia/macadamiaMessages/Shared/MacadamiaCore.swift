@@ -30,6 +30,7 @@ enum MacadamiaCoreError: Error, LocalizedError {
     }
 }
 
+
 // MARK: - Core Wallet Operations
 extension AppSchemaV1.Wallet {
     /// Get total balance across all mints

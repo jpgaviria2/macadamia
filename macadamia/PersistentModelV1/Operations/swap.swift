@@ -83,9 +83,10 @@ struct SwapManager {
         updateHandler(.loading)
         
         let mintQuoteRequest = CashuSwift.Bolt11.RequestMintQuote(unit: "sat", amount: amount)
-        toMint.getQuote(for: mintQuoteRequest) { result in
-            switch result {
-            case .success((let quote, let mintAttemptEvent)):
+        
+        Task {
+            do {
+                let (quote, mintAttemptEvent) = try await toMint.getQuote(for: mintQuoteRequest as CashuSwift.QuoteRequest)
                 guard let mintQuote = quote as? CashuSwift.Bolt11.MintQuote else {
                     swapLogger.error("returned quote was not a bolt11 mint quote. aborting swap.")
                     return
@@ -94,35 +95,29 @@ struct SwapManager {
                 let meltQuoteRequest = CashuSwift.Bolt11.RequestMeltQuote(unit: "sat",
                                                                           request: mintQuote.request,
                                                                           options: nil)
-                fromMint.getQuote(for: meltQuoteRequest) { result in
-                    switch result {
-                    case .success((let quote, let meltAttemptEvent)):
-                        guard let meltQuote = quote as? CashuSwift.Bolt11.MeltQuote else {
-                            swapLogger.error("returned quote was not a bolt11 mint quote. aborting swap.")
-                            return
-                        }
-                        
-                        guard let selection = fromMint.select(amount: amount + meltQuote.feeReserve,
-                                                              unit: .sat) else {
-                            
-                            updateHandler(.fail(error: CashuError.insufficientInputs("")))
-                            return
-                        }
-                        
-                        selection.selected.setState(.pending)
-                        
-                        setupDidSucceed(fromMint: fromMint,
-                                        toMint: toMint,
-                                        seed: seed,
-                                        mintAttemptEvent: mintAttemptEvent,
-                                        meltAttemptEvent: meltAttemptEvent,
-                                        selectedProofs: selection.selected)
-                        
-                    case .failure(let error):
-                        updateHandler(.fail(error: error))
-                    }
+                
+                let (meltQuote, meltAttemptEvent) = try await fromMint.getQuote(for: meltQuoteRequest as CashuSwift.QuoteRequest)
+                guard let meltQuote = meltQuote as? CashuSwift.Bolt11.MeltQuote else {
+                    swapLogger.error("returned quote was not a bolt11 melt quote. aborting swap.")
+                    return
                 }
-            case .failure(let error):
+                
+                guard let selection = fromMint.select(amount: amount + meltQuote.feeReserve,
+                                                      unit: .sat) else {
+                            updateHandler(.fail(error: macadamiaError.databaseError("Insufficient funds for swap")))
+                    return
+                }
+                
+                selection.selected.setState(.pending)
+                
+                setupDidSucceed(fromMint: fromMint,
+                                toMint: toMint,
+                                seed: seed,
+                                mintAttemptEvent: mintAttemptEvent,
+                                meltAttemptEvent: meltAttemptEvent,
+                                selectedProofs: selection.selected)
+                
+            } catch {
                 updateHandler(.fail(error: error))
             }
         }

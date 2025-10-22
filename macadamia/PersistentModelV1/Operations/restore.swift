@@ -21,7 +21,7 @@ extension macadamiaApp {
                                                        event: Event), Error>) -> Void) {
                
         guard let mnemo = try? Mnemonic(phrase: words) else {
-            completion(.failure(CashuError.restoreError("Could not generate seed from text input. Please try again.")))
+            completion(.failure(macadamiaError.databaseError("Invalid mnemonic phrase")))
             return
         }
         

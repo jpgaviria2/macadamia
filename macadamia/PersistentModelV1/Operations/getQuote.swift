@@ -48,7 +48,7 @@ extension AppSchemaV1.Mint {
                                            proofs: [])
             
         default:
-            throw CashuError.typeMismatch("quote is not of any known type.")
+            throw macadamiaError.unknownMint(nil)
         }
         
         quoteLogger.info("Successfully requested mint quote from mint.")
@@ -99,7 +99,7 @@ extension AppSchemaV1.Mint {
                         completion(.success((quote, event)))
                         
                     default:
-                        completion(.failure(CashuError.typeMismatch("quote is not of any known type.")))
+                        completion(.failure(macadamiaError.databaseError("Failed to decode quote response")))
                     }
                 }
             } catch {

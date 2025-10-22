@@ -50,6 +50,7 @@ struct ContentView: View {
     enum Tab {
         case wallet
         case mints
+        case bluetooth
         case settings
     }
 
@@ -72,7 +73,15 @@ struct ContentView: View {
                     }
                     .tag(Tab.mints)
 
-                // Third tab content
+                    // Bluetooth tab
+                    UnifiedEcashView()
+                        .tabItem {
+                            Image(systemName: "bluetooth")
+                            Text("Ecash")
+                        }
+                        .tag(Tab.bluetooth)
+
+                // Settings tab
                 SettingsView()
                     .tabItem {
                         Image(systemName: "gear")

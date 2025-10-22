@@ -24,7 +24,7 @@ extension AppSchemaV1.Mint {
         let units = Set(proofs.map({ $0.unit }))
         
         guard let unit = units.first, units.count == 1 else {
-            completion(.failure(CashuError.unitError("Input proofs seem to contain more than one unit, which is not allowed.")))
+            completion(.failure(macadamiaError.unsupportedUnit))
             return
         }
                 
@@ -122,7 +122,7 @@ extension AppSchemaV1.Mint {
             
         } else {
             sendLogger.critical("amount must not exceed preselected proof sum. .pick() should have returned nil.")
-            completion(.failure(CashuError.invalidAmount))
+            completion(.failure(macadamiaError.databaseError("Amount exceeds preselected proof sum")))
             return
         }
     }
